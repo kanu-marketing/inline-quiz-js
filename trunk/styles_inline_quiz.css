@@ -4,7 +4,6 @@
 	margin:25px;
 	border:1px solid #CCC;
 	padding:0px 10px 10px 10px;
-	font-family:Verdana, Arial, Helvetica, sans-serif;
 	font-size:11pt;
 	font-weight:bold;
 }
@@ -16,7 +15,6 @@
 	color:#000000;
 	padding:0px 10px 10px 10px;
 	border:none;
-	font-family:Verdana, Arial, Helvetica, sans-serif;
 	font-size:11pt;
 	font-weight:normal;
 	display:none;
@@ -71,4 +69,9 @@
 .inline_quiz > div.inactive,
 .inline_quiz_all > div.inactive {
 	cursor:default !important;
+}
+
+.vuDATInlineQuiz .inline_content .inline_quiz,
+.vuDATInlineQuiz .inline_content .inline_quiz_all {
+	display:block !important;	
 }
