@@ -8,7 +8,7 @@
 		box.gif, check.gif, question.gif, x.gif, styles_inline_quiz.css
 --------------------------------------------*/
 
-var my_path = ""; // example: "/_javascript/inline_quiz/"
+var my_path = "../"; // example: "/_javascript/inline_quiz/"
 var ilq_show_explanations = false;
 var ilq_multi_start_id = "";
 		 
@@ -114,7 +114,7 @@ vuDAT_Inline_Quiz = {
 		} else {
 			$(question).addClass("incorrectAns");
 		}
-		vuDAT_Inline_Quiz.nextQuestion(question.id);
+		vuDAT_Inline_Quiz.nextQuestion(question);
 		if(ilq_show_explanations==false) {
 			vuDAT_Inline_Quiz.add_q_marks(question);
 		} else {
@@ -128,11 +128,19 @@ vuDAT_Inline_Quiz = {
 		//console.log("how_many:"+how_many);
 		return how_many;
 	},
-	nextQuestion: function(id){
-		if(id != ""){
-			if($("."+id+":first").attr("class").search(/inline_content/) != -1)
-				$($("."+id+":first").children("div.inline_quiz_all, div.inline_quiz")[0]).addClass("show");
-			$("."+id).slideDown("slow");	
+	nextQuestion: function(prev_question){
+		var class_to_unlock = prev_question.id.replace('unlock','');
+		if(class_to_unlock != ""){
+			$("."+class_to_unlock).addClass("show").slideDown("slow");
+			$("."+class_to_unlock).each(function(i) {
+				if(i==0) {  // only scroll once
+					var targetOffset = $(this).offset();
+					$("html,body").animate({scrollTop: targetOffset.top}, 1000);
+				}
+				if($(this).is(".inline_content")) {
+					$(this).children("div.inline_quiz_all, div.inline_quiz").addClass("show");	
+				}
+			});
 		}
 	},
 	show_all_answers: function(question) {
@@ -272,48 +280,6 @@ vuDAT_Inline_Quiz = {
 		img.setAttribute("style",$(input).attr('style'));
 		img.setAttribute("alt",$(input).attr('alt'));
 		$(input).before(img).remove();
-	},
-	scrollToTop: function(){
-		if(window.pageYOffset && (0 < window.pageYOffset)){
-			window.scrollBy(0,-20);
-			setTimeout("vuDAT_Inline_Quiz.scrollToTop()",30);
-		}
-		else if(0 < document.body.scrollTop){
-			window.scrollBy(0,-20);
-			setTimeout("vuDAT_Inline_Quiz.scrollToTop()",5);
-		}
-		else if (0 < document.documentElement.scrollTop){
-			window.scrollBy(0,-20);
-			setTimeout("vuDAT_Inline_Quiz.scrollToTop()",5);
-		}
-		else {
-		}
-	},
-	scrollToElement: function() {
-		pageY = vuDAT_Inline_Quiz.getPageY()+500;
-		if(window.pageYOffset)
-			pageY += 500;
-		if(i >= pageY){
-			window.scrollBy(0,20);
-			setTimeout("vuDAT_Inline_Quiz.scrollToElement("+i.toString()+")",15);
-		}
-	},
-	getPageY: function() {
-		var theTop;
-		if (document.documentElement && document.documentElement.scrollTop){
-			theTop = document.documentElement.scrollTop;
-			theTop = theTop-(1000-document.documentElement.clientHeight);
-		}
-		else if (document.body){
-			theTop = document.body.scrollTop;
-			theTop = theTop-(1000-document.body.clientHeight);
-		}
-		else
-		{
-			theTop = window.pageYOffset;
-			theTop = theTop-(1000-document.body.clientHeight);
-		}
-		return theTop;	
 	}
 };
 
