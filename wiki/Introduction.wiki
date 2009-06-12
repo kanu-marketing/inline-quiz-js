@@ -1,0 +1,17 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+The Inline Quiz tool was originally created by developers at Michigan State University (specifically [http://vudat.msu.edu vuDAT]) for use in MSU's online and hybrid courses.  It was recently given an upgrade to greatly improve accessibility and offer a couple new configurable options.  The tool has traditionally been hosted on a site that is being phased out, so we decided to move it here, hoping that it might be used more.
+
+= Basic Example =
+
+Here's a very simple example of the syntax used to create a true/false inline quiz question:
+
+{{{
+    <div class="inline_quiz_all">
+        <p>The Inline Quiz tool is really cool.</p>
+        <div class="right">True.</div>
+        <div class="wrong">False.</div>
+    </div>
+}}}
