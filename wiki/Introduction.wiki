@@ -4,7 +4,7 @@
 
 The Inline Quiz tool was originally created by developers at Michigan State University (specifically [http://vudat.msu.edu vuDAT]) for use in MSU's online and hybrid courses.  It was recently given an upgrade to greatly improve accessibility and offer a couple new configurable options.  The tool has traditionally been hosted on a site that is being phased out, so we decided to move it here, hoping that it might be used more.
 
-= Basic Example =
+= Example T/F Question Without Explanations =
 
 Here's a very simple example of the syntax used to create a true/false inline quiz question:
 
@@ -13,5 +13,23 @@ Here's a very simple example of the syntax used to create a true/false inline qu
         <p>The Inline Quiz tool is really cool.</p>
         <div class="right">True.</div>
         <div class="wrong">False.</div>
+    </div>
+}}}
+
+
+= Example Multiple Choice Question With Explanations =
+
+Here's an example of the syntax used to create an inline quiz question with explanations:
+
+{{{
+    <div class="inline_quiz">
+        <p>What state in the United States has an upper and a lower peninsula?</p>
+        <div class="wrong">Hawaii</div>
+        <div class="wrong">Alaska</div>
+        <div class="wrong">Florida</div>
+                <div class="why">Nice try, but that's not it.</div>
+        <div class="right">Michigan
+                <div class="why">Yes.  And the lower peninsula is shaped like a mitten.</div>
+        </div>
     </div>
 }}}
