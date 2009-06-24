@@ -1,0 +1,12 @@
+#summary How to string a series of questions together
+
+= Series of Content =
+You can set up the Inline Quiz tool so that when you complete a question, some other question(s) and/or content is revealed.
+
+  # Put everything inside a div with the class 'InlineQuizContainer'
+  # Give the first question a unique ID
+  # Use that ID as a CSS class on the element(s) you want revealed when the question is completed.  The elements can be questions (divs with class 'inline_quiz' or 'inline_quiz_all') or divs with the class 'inline_content'
+
+If you want something other than the first div to be the first question showed you'll need set the ilq_multi_start_id variable to match the ID you used.
+
+Let me know if you need more detailed instructions.
