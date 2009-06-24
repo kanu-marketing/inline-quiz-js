@@ -1,10 +1,18 @@
+/*-------------------------------------------
+	Inline Quiz version 3.0 
+	Michigan State University
+	Virtual University Design and Technology
+	Creator:  Nathan Lounds with contributions by Matt Guibord
+	Project Page: http://code.google.com/p/inline-quiz-js/
+	Dependencies:  jquery.js (http://jquery.com)
+		box.gif, check.gif, question.gif, x.gif, styles_inline_quiz.css
+--------------------------------------------*/
 .inline_quiz,
 .inline_quiz_all {
 	color:#000000;
 	margin:25px;
 	border:1px solid #CCC;
 	padding:0px 10px 10px 10px;
-	//*font-size:11pt;*/
 	font-weight:bold;
 	background-color:#FFF;
 }
@@ -16,7 +24,6 @@
 	color:#000000;
 	padding:0px 10px 10px 10px;
 	border:none;
-	/*font-size:11pt;*/
 	font-weight:normal;
 	display:none;
 }
@@ -36,7 +43,6 @@
 	cursor:pointer;
 	margin-top:10px;
 	margin-left:35px;
-	/*font-size:11pt;*/
 }
 .correctAns {
 	background:#e5ffe5;
