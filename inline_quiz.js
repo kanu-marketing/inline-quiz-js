@@ -89,7 +89,6 @@ Inline_Quiz = {
 			}).keypress(function(e) {
 				e.preventDefault();
 			});
-			//this.className = 'ilq_answer';
 			Inline_Quiz.tmp_parent = this.parentNode;
 		});
 	},
@@ -100,7 +99,6 @@ Inline_Quiz = {
 		And show explanations of question marks to toggle them. */
 	questionComplete: function(resp, ans){
 		var question = resp.parentNode;
-		//console.log("questionComplete()");
 		if(ans) {
 			$(question).addClass("correctAns");
 		} else {
@@ -116,7 +114,6 @@ Inline_Quiz = {
 	/* num_left()
 		Count the number of correct responses for a question that haven't been clicked. */
 	num_left: function(resp) {
-		//console.log("num_left:"+resp);
 		var how_many = $(resp).siblings('.right').not('.inactive').size();
 		return how_many;
 	},
@@ -136,7 +133,6 @@ Inline_Quiz = {
 		}
 	},
 	show_all_answers: function(question) {
-		//console.log("show_all_answers answers");
 		$(question).find(".right, .wrong").each(function(i) {
 			$(this).trigger("click");
 		});
@@ -145,7 +141,6 @@ Inline_Quiz = {
 		Handler for when a correct response is clicked and question is set to allow user
 		keep guessing until they get it right. */
 	ilq_click: function(resp, iscorrect) {
-		//console.log("ilq_click()");
 		var q_all = $(resp).parent().hasClass(".inline_quiz_all");
 		$(resp).addClass("manually_clicked").addClass("inactive").unbind('click');
 		
@@ -156,7 +151,6 @@ Inline_Quiz = {
 		Inline_Quiz.do_click(resp, iscorrect);
 	},
 	show_explanations: function(response) {
-		//console.log("show_explanations()"+$(response).text());
 		$(response)
 			.parent()
 			.children(".right, .wrong")
@@ -165,7 +159,6 @@ Inline_Quiz = {
 			});
 	},
 	add_q_marks: function(elem) {
-		//console.log("add_q_marks()"+$(elem).text());
 		$(elem)
 			.children(".right, .wrong")
 			.not(".inactive")
@@ -175,7 +168,6 @@ Inline_Quiz = {
 			});
 	},
 	do_click: function(response, correct) {
-		//console.log("do_click()"+ $(response).text() + "::" + correct);
 		var img_name;
 		var color;
 		var expl;
@@ -242,7 +234,6 @@ Inline_Quiz = {
 				.attr('src',Inline_Quiz.path+img_name)
 				.each(function() {
 					if(ilq_show_explanations==false) {
-						//console.log("yes");
 						if(num_explanations==0) {
 							Inline_Quiz.convertInput2Image(this);	
 						}
@@ -274,7 +265,6 @@ Inline_Quiz = {
 	/* convertInput2Image()
 		Converts an image input to a regular image so that screen readers stop calling it a button. */
 	convertInput2Image: function(input) {
-		//console.log("convertInput2Image()::"+$(input).attr('src'));
 		var img = document.createElement('img');
 		img.setAttribute("src",$(input).attr('src'));
 		img.className = "ilq_box";
