@@ -3,7 +3,7 @@
 	Michigan State University
 	Virtual University Design and Technology
 	Creator:  Nathan Lounds with contributions by Matt Guibord
-	Instructions: http://tips.angel.msu.edu/inline_quiz/
+	Project Page: http://code.google.com/p/inline-quiz-js/
 	Dependencies:  jquery.js (http://jquery.com)
 		box.gif, check.gif, question.gif, x.gif, styles_inline_quiz.css
 --------------------------------------------*/
