@@ -4,18 +4,19 @@
 	margin:25px;
 	border:1px solid #CCC;
 	padding:0px 10px 10px 10px;
-	font-size:11pt;
+	//*font-size:11pt;*/
 	font-weight:bold;
+	background-color:#FFF;
 }
-.vuDATInlineQuiz .inline_quiz,
-.vuDATInlineQuiz .inline_quiz_all {
+.InlineQuizContainer .inline_quiz,
+.InlineQuizContainer .inline_quiz_all {
 	display:none;
 }
 .inline_content {
 	color:#000000;
 	padding:0px 10px 10px 10px;
 	border:none;
-	font-size:11pt;
+	/*font-size:11pt;*/
 	font-weight:normal;
 	display:none;
 }
@@ -35,7 +36,7 @@
 	cursor:pointer;
 	margin-top:10px;
 	margin-left:35px;
-	font-size:11pt;
+	/*font-size:11pt;*/
 }
 .correctAns {
 	background:#e5ffe5;
@@ -54,7 +55,7 @@
 	font-style:italic;
 	margin-left:30px;
 }
-.vuDATInlineQuiz .show{
+.InlineQuizContainer .show{
 	display:block;
 }
 .link {
@@ -71,7 +72,7 @@
 	cursor:default !important;
 }
 
-.vuDATInlineQuiz .inline_content .inline_quiz,
-.vuDATInlineQuiz .inline_content .inline_quiz_all {
+.InlineQuizContainer .inline_content .inline_quiz,
+.InlineQuizContainer .inline_content .inline_quiz_all {
 	display:block !important;	
 }
