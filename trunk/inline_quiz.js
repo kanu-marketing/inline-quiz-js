@@ -8,22 +8,27 @@
 		box.gif, check.gif, question.gif, x.gif, styles_inline_quiz.css
 --------------------------------------------*/
 
-var my_path = "../"; // example: "/_javascript/inline_quiz/"
 var ilq_show_explanations = false;
 var ilq_multi_start_id = "";
-		 
-vuDAT_Inline_Quiz = {
+
+Inline_Quiz = {
 	tmp_parent: null,
 	tmp_i: 1,
+	path: "",
 	initialize: function(){
+		if((typeof my_path!="undefined")&&(typeof ilq_path=="undefined")) {
+			Inline_Quiz.path = my_path;  // backwards compatability with my_path var
+		} else if(typeof ilq_path!="undefined") {
+			Inline_Quiz.path = ilq_path;
+		}
 		//<![CDATA[
 		// loading the stylesheet into the document header
 		if(document.createStyleSheet) { // non-standard IE way of doing it
-			document.createStyleSheet(my_path+'styles_inline_quiz.css');
+			document.createStyleSheet(Inline_Quiz.path+'styles_inline_quiz.css');
 		} else { // do it the W3C DOM way
 			var newCSS=document.createElement('link');
 			newCSS.rel='stylesheet';
-			newCSS.href=my_path+'styles_inline_quiz.css';
+			newCSS.href=Inline_Quiz.path+'styles_inline_quiz.css';
 			newCSS.type='text/css';
 			if(document.getElementsByTagName("head")[0]) {
 				document.getElementsByTagName("head")[0].appendChild(newCSS);
@@ -41,56 +46,43 @@ vuDAT_Inline_Quiz = {
 		});
 		
 		$(".inline_quiz > div.right").click(function(){
-			vuDAT_Inline_Quiz.ilq_click(this, true);
+			Inline_Quiz.ilq_click(this, true);
 		});
 
 		$(".inline_quiz > div.wrong").click(function(){
-			vuDAT_Inline_Quiz.ilq_click(this, false);
+			Inline_Quiz.ilq_click(this, false);
 		});
 
 		$(".inline_quiz_all > div.right").click(function(){
-			vuDAT_Inline_Quiz.ilq_click(this, true);
+			Inline_Quiz.ilq_click(this, true);
 		});
 
 		$(".inline_quiz_all > div.wrong").click(function(){
-			vuDAT_Inline_Quiz.ilq_click(this, false);
+			Inline_Quiz.ilq_click(this, false);
 		});
 
 		//show first question of all quizzes
-		elements = document.getElementsByTagName("div");
-		if(elements) {
-			for(i = 0; i < elements.length; ++i){
-				if(elements[i].className.search(/vuDATInlineQuiz/) != -1){
-					if(ilq_multi_start_id!="") {
-						the_element = document.getElementById(ilq_multi_start_id);
-					} else {
-						the_element = elements[i].getElementsByTagName("div")[0];
-					}
-					if(the_element){
-						$(the_element).addClass("show");
-						if(the_element.className.search(/inline_content/) != -1){
-							$(the_element).children("div.inline_quiz, div.inline_quiz_all").each( function() {
-								$(this).addClass("show");
-							});
-						}
-					}
-				}
-			}
+		var selector = "#"+ilq_multi_start_id;
+		if(ilq_multi_start_id=="") {
+			selector = ".InlineQuizContainer div:first";
 		}
+		$(selector).addClass("show").children("div.inline_quiz, div.inline_quiz_all").each( function() {
+			$(this).addClass("show");
+		});
 		
 		// add the box images and change classes so source doesn't show if an answer is right or wrong
 		$(".inline_quiz_all > div.right, .inline_quiz_all > div.wrong, .inline_quiz > div.right, .inline_quiz > div.wrong").each(function(i){
 			var box = document.createElement('input');
 			var tmp_parent;
-			if(vuDAT_Inline_Quiz.tmp_parent!=this.parentNode) {
-				vuDAT_Inline_Quiz.tmp_i = 1;
+			if(Inline_Quiz.tmp_parent!=this.parentNode) {
+				Inline_Quiz.tmp_i = 1;
 			} else {
-				vuDAT_Inline_Quiz.tmp_i++;
+				Inline_Quiz.tmp_i++;
 			}
 			box.type = "image";
-			box.setAttribute("src",my_path+"box.gif");
+			box.setAttribute("src",Inline_Quiz.path+"box.gif");
 			box.className = 'ilq_box';
-			box.alt = (vuDAT_Inline_Quiz.tmp_i);
+			box.alt = (Inline_Quiz.tmp_i);
 			this.insertBefore(box, this.firstChild);
 			$(box).click(function(e) {
 				e.preventDefault();
@@ -98,7 +90,7 @@ vuDAT_Inline_Quiz = {
 				e.preventDefault();
 			});
 			//this.className = 'ilq_answer';
-			vuDAT_Inline_Quiz.tmp_parent = this.parentNode;
+			Inline_Quiz.tmp_parent = this.parentNode;
 		});
 	},
 	/* questionComplete()
@@ -114,18 +106,18 @@ vuDAT_Inline_Quiz = {
 		} else {
 			$(question).addClass("incorrectAns");
 		}
-		vuDAT_Inline_Quiz.nextQuestion(question);
+		Inline_Quiz.nextQuestion(question);
 		if(ilq_show_explanations==false) {
-			vuDAT_Inline_Quiz.add_q_marks(question);
+			Inline_Quiz.add_q_marks(question);
 		} else {
-			vuDAT_Inline_Quiz.show_explanations(resp);
+			Inline_Quiz.show_explanations(resp);
 		}
 	},
 	/* num_left()
 		Count the number of correct responses for a question that haven't been clicked. */
 	num_left: function(resp) {
+		//console.log("num_left:"+resp);
 		var how_many = $(resp).siblings('.right').not('.inactive').size();
-		//console.log("how_many:"+how_many);
 		return how_many;
 	},
 	nextQuestion: function(prev_question){
@@ -157,12 +149,11 @@ vuDAT_Inline_Quiz = {
 		var q_all = $(resp).parent().hasClass(".inline_quiz_all");
 		$(resp).addClass("manually_clicked").addClass("inactive").unbind('click');
 		
-		if(vuDAT_Inline_Quiz.num_left(resp)==0 || (q_all==true && iscorrect==false)) {
+		if(Inline_Quiz.num_left(resp)==0 || (q_all==true && iscorrect==false)) {
 			// got all correct responses, or wrong answer and you're not allowed any
-			vuDAT_Inline_Quiz.questionComplete(resp,iscorrect);
+			Inline_Quiz.questionComplete(resp,iscorrect);
 		}		
-		
-		vuDAT_Inline_Quiz.do_click(resp, iscorrect);
+		Inline_Quiz.do_click(resp, iscorrect);
 	},
 	show_explanations: function(response) {
 		//console.log("show_explanations()"+$(response).text());
@@ -170,7 +161,7 @@ vuDAT_Inline_Quiz = {
 			.parent()
 			.children(".right, .wrong")
 			.each(function() {
-				vuDAT_Inline_Quiz.do_click(this, $(this).hasClass("right"));	   
+				Inline_Quiz.do_click(this, $(this).hasClass("right"));	   
 			});
 	},
 	add_q_marks: function(elem) {
@@ -180,7 +171,7 @@ vuDAT_Inline_Quiz = {
 			.not(".inactive")
 			.unbind('click')
 			.each(function() {
-				vuDAT_Inline_Quiz.do_click(this, $(this).hasClass("right"));  
+				Inline_Quiz.do_click(this, $(this).hasClass("right"));  
 			});
 	},
 	do_click: function(response, correct) {
@@ -190,6 +181,7 @@ vuDAT_Inline_Quiz = {
 		var expl;
 		var clicked = $(response).hasClass("manually_clicked");
 		var alt = '';
+		var num_explanations = $(response).find(".why, .because").size();
 		if(correct===true) {  // response is correct
 			$(response).css('font-weight','bold');
 			color = '#2EB231';
@@ -229,7 +221,11 @@ vuDAT_Inline_Quiz = {
 				if(clicked===true) {  // response was physically clicked
 					expl = true;
 				} else {  // response programmactically 'clicked'
-					img_name = 'question.gif';
+					if(num_explanations==0) {
+						img_name = 'box.gif';
+					} else {
+						img_name = 'question.gif';
+					}
 					alt = "Incorrect answer you didn't choose.";
 				}
 			}
@@ -237,15 +233,19 @@ vuDAT_Inline_Quiz = {
 		$(response)
 			.find('input:first') // switching to image
 			.attr('alt',alt);
-		if($(response).parent().find(".why, .because").size()==0 && img_name=='question.gif') {
+		if(num_explanations==0 && img_name=='question.gif') {
 			// leave the image as a box and don't add a click function if there is no explanation
-			vuDAT_Inline_Quiz.convertInput2Image($(response).find('input:first'));
+			Inline_Quiz.convertInput2Image($(response).find('input:first'));
 		} else {
 			$(response)
 				.find('input:first') // switching to image
-				.attr('src',my_path+img_name)
+				.attr('src',Inline_Quiz.path+img_name)
 				.each(function() {
 					if(ilq_show_explanations==false) {
+						//console.log("yes");
+						if(num_explanations==0) {
+							Inline_Quiz.convertInput2Image(this);	
+						}
 						$(this).css('cursor','pointer').click(function() {
 							$(this).parent().find(".why, .because").each(function() {
 								if(this.className=="why") {
@@ -256,9 +256,10 @@ vuDAT_Inline_Quiz = {
 							});
 						});
 					} else {
-						vuDAT_Inline_Quiz.convertInput2Image(this);	
+						Inline_Quiz.convertInput2Image(this);	
 					}
 				})
+
 		}
 		$(response)
 			.css('color',color)
@@ -273,10 +274,10 @@ vuDAT_Inline_Quiz = {
 	/* convertInput2Image()
 		Converts an image input to a regular image so that screen readers stop calling it a button. */
 	convertInput2Image: function(input) {
-		//console.log("convertInput2Image()");
+		//console.log("convertInput2Image()::"+$(input).attr('src'));
 		var img = document.createElement('img');
 		img.setAttribute("src",$(input).attr('src'));
-		img.className = input.className;
+		img.className = "ilq_box";
 		img.setAttribute("style",$(input).attr('style'));
 		img.setAttribute("alt",$(input).attr('alt'));
 		$(input).before(img).remove();
@@ -284,5 +285,5 @@ vuDAT_Inline_Quiz = {
 };
 
 $(document).ready(function() {
-	vuDAT_Inline_Quiz.initialize();
+	Inline_Quiz.initialize();
 });
