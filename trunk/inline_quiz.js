@@ -6,6 +6,8 @@
 	Project Page: http://code.google.com/p/inline-quiz-js/
 	Dependencies:  jquery.js (http://jquery.com)
 		box.gif, check.gif, question.gif, x.gif, styles_inline_quiz.css
+	Copyright (c) 2009 Michigan State University Board of Trustees
+	License: http://www.opensource.org/licenses/mit-license.php
 --------------------------------------------*/
 
 var ilq_show_explanations = false;
