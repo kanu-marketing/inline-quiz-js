@@ -86,8 +86,10 @@ Inline_Quiz = {
 			this.insertBefore(box, this.firstChild);
 			$(box).click(function(e) {
 				e.preventDefault();
+				this.blur();
 			}).keypress(function(e) {
 				e.preventDefault();
+				this.blur();
 			});
 			Inline_Quiz.tmp_parent = this.parentNode;
 		}).mouseover(function() {
@@ -146,7 +148,10 @@ Inline_Quiz = {
 		keep guessing until they get it right. */
 	ilq_click: function(resp, iscorrect) {
 		var q_all = $(resp).parent().hasClass(".inline_quiz_all");
-		$(resp).addClass("manually_clicked").addClass("inactive").unbind('click').unbind('mouseover').unbind('mouseout');
+		$(resp).addClass('manually_clicked')
+			.addClass('inactive')
+			.removeClass('ilq_hover')
+			.unbind('click').unbind('mouseover').unbind('mouseout');
 		
 		if(Inline_Quiz.num_left(resp)==0 || (q_all==true && iscorrect==false)) {
 			// got all correct responses, or wrong answer and you're not allowed any
@@ -227,6 +232,7 @@ Inline_Quiz = {
 			}
 		}
 		$(response)
+			.unbind('mouseover').unbind('mouseout')
 			.find('input:first') // switching to image
 			.attr('alt',alt);
 		if(num_explanations==0 && img_name=='question.gif') {
