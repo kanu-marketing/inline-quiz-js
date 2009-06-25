@@ -33,6 +33,10 @@
 	border: 1px solid #CCCCCC;
 	vertical-align:text-top;
 }
+.ilq_hover img.ilq_box,
+.ilq_hover input.ilq_box {
+	border:1px dotted #000;	
+}
 .inline_quiz .right,
 .inline_quiz .wrong,
 .inline_quiz .ilq_answer,

@@ -90,6 +90,10 @@ Inline_Quiz = {
 				e.preventDefault();
 			});
 			Inline_Quiz.tmp_parent = this.parentNode;
+		}).mouseover(function() {
+			$(this).addClass("ilq_hover");
+		}).mouseout(function() {
+			$(this).removeClass("ilq_hover");
 		});
 	},
 	/* questionComplete()
@@ -142,7 +146,7 @@ Inline_Quiz = {
 		keep guessing until they get it right. */
 	ilq_click: function(resp, iscorrect) {
 		var q_all = $(resp).parent().hasClass(".inline_quiz_all");
-		$(resp).addClass("manually_clicked").addClass("inactive").unbind('click');
+		$(resp).addClass("manually_clicked").addClass("inactive").unbind('click').unbind('mouseover').unbind('mouseout');
 		
 		if(Inline_Quiz.num_left(resp)==0 || (q_all==true && iscorrect==false)) {
 			// got all correct responses, or wrong answer and you're not allowed any
