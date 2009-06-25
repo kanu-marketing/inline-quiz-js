@@ -35,7 +35,7 @@
 }
 .ilq_hover img.ilq_box,
 .ilq_hover input.ilq_box {
-	border:1px dotted #000;	
+	border:1px solid #000;	
 }
 .inline_quiz .right,
 .inline_quiz .wrong,
