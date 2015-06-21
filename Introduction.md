@@ -1,0 +1,3 @@
+# Introduction #
+
+The Inline Quiz tool was originally created by developers at Michigan State University (specifically [vuDAT](http://vudat.msu.edu)) for use in MSU's online and hybrid courses.  It was recently given an upgrade to greatly improve accessibility and offer a couple new configurable options.  The tool has traditionally been hosted on a site that is being phased out, so we decided to move it here, hoping that it might be used more.
